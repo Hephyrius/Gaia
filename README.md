@@ -1,8 +1,10 @@
-# Hephyrion
+# Gaia 
+
+Nature inspired ML and Heuristic Combos. For fun and science!
 
 ## Summary:
 
-This repo is just me messing around with Heuristics, Machine Learning and other ideas,
+This repo is just me experimenting with Heuristics, Machine Learning and other ideas. 
 I don't intend for it to be used in any manner, for now atleast.
 Although if you do use it in anything accademic, please cite me! it would be appreciated!
 
@@ -85,7 +87,7 @@ class = np.argmax(preds)
 
 ## Citation
 
-@misc{khera2018hephyrion,
+@misc{Khera2018Gaia,
   title={Hephyrion},
   author={Khera, Harnick},
   year={2018},
