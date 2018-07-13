@@ -21,7 +21,7 @@ class Neuron():
         
         self.ConnectionsIn = []
         self.ConnectionsOut = []
-        self.Bias = 0
+        self.Bias = r.random()
         self.Value = 0
         self.ActivatedAdjustedValue = 0
         

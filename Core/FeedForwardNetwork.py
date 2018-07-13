@@ -15,11 +15,13 @@ import math
 class FeedForwardNetwork():
     
     Layers = []
+    Fitness = 0
     
     def __init__(self, _LayerSizes):
         
         self.Layers = []
         self.CreateNetwork(_LayerSizes)
+        self.Fitness = 0
     
     
     def CreateNetwork(self, _LayerSizes):
@@ -39,7 +41,7 @@ class FeedForwardNetwork():
     def ConnectLayers(self):
         
         Length = len(self.Layers)
-        print(Length)
+        #print(Length)
                 
         for i in range(len(self.Layers)):
             
@@ -61,7 +63,7 @@ class FeedForwardNetwork():
         
         for i in range(len(_inputs)):
             self.Layers[0][i].Value = _inputs[i]
-            self.Layers[0][i].ActivatedAdjustedValue = self.sigmoid(self.Layers[0][i].Value)
+            self.Layers[0][i].ActivatedAdjustedValue = self.Layers[0][i].Value #self.Tanh(self.Layers[0][i].Value+self.Layers[0][i].Bias)
         
         for i in range(1, len(self.Layers)):
             
@@ -71,11 +73,11 @@ class FeedForwardNetwork():
                 
                 for k in j.ConnectionsIn:
                     
-                    nodeValue += (k.Weight * k.Node1.ActivatedAdjustedValue) #+ k.Node2.Bias
+                    nodeValue += (np.dot(k.Weight, k.Node1.ActivatedAdjustedValue)) + k.Node2.Bias
                 
                 #print(nodeValue)
                 j.Value = nodeValue
-                j.ActivatedAdjustedValue = self.sigmoid(j.Value)
+                j.ActivatedAdjustedValue = self.Tanh(j.Value)
                 
         outputs = []
         
@@ -90,7 +92,11 @@ class FeedForwardNetwork():
         
         return 1 / (1 + math.exp(-x))           
     
-                    
+    def Tanh(self, x):
+        
+        return np.tanh(x)
+    
+    
 #Network = FeedForwardNetwork([1,5,5,10])
 #preds = Network.predict([8])
 #prediction = np.argmax(preds)
