@@ -235,14 +235,16 @@ for c, i in iris.iterrows():
     Y.append(i['label'])
     
 #%%
-data = [[0,0],[0,1],[1,0],[1,1]]
-targets = [1,0,0,1]        
+#if its 1 first then its Xor else its And
+data = [[0,0,0],[0,0,1],[0,1,0],[0,1,1],[1,0,0],[1,0,1],[1,1,0],[1,1,1]]
+targets = [1,0,0,1,0,1,1,0]        
         
 GA = GeneticNetwork(20, [4,16,3])
 
 GA.Neat(X, Y, 1000)
 
-
+#%%
+print(GA.Population[0].predict(X[148]))
 
 #GA.Mutate(Net2)
 #
