@@ -238,9 +238,9 @@ for c, i in iris.iterrows():
 data = [[0,0],[0,1],[1,0],[1,1]]
 targets = [1,0,0,1]        
         
-GA = GeneticNetwork(100, [4,8,3])
+GA = GeneticNetwork(20, [4,16,3])
 
-GA.Neat(X, Y, 100)
+GA.Neat(X, Y, 1000)
 
 
 

@@ -73,24 +73,25 @@ class FeedForwardNetwork():
                 
                 for k in j.ConnectionsIn:
                     
-                    nodeValue += (np.dot(k.Weight, k.Node1.ActivatedAdjustedValue)) + k.Node2.Bias
+                    nodeValue += (np.dot(k.Weight, k.Node1.ActivatedAdjustedValue)) #+ k.Node2.Bias
                 
                 #print(nodeValue)
                 j.Value = nodeValue
-                j.ActivatedAdjustedValue = self.Tanh(j.Value)
+                j.ActivatedAdjustedValue = self.sigmoid(j.Value)
                 
         outputs = []
         
         for i in self.Layers[len(self.Layers)-1]:
             
-            outputs.append(i.ActivatedAdjustedValue)
+            outputs.append(i.Value)
         
         return outputs
                 
 
     def sigmoid(self, x):
         
-        return 1 / (1 + math.exp(-x))           
+        return np.sinh(x)
+        #return 1 / (1 + math.exp(-x))           
     
     def Tanh(self, x):
         
