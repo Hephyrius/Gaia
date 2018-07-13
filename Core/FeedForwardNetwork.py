@@ -49,17 +49,12 @@ class FeedForwardNetwork():
                     
                         connection = Con.Connection(j,k)
                         j.addConnection(connection)
+    
+    #Feed Forward
+    def predict(self):
+        print("Feeding Forward!")
+        
+    
                     
-            
-            
-            
-            
-            
-            
-            
-            
-            
-                
-                
-
 Network = FeedForwardNetwork([2,5,5,1])
+Network.predict()

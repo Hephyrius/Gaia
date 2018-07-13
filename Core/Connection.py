@@ -6,6 +6,7 @@ Created on Thu Jul 12 23:18:28 2018
 
 Connection between two neurons
 """
+import random as r
 
 class Connection():
     
@@ -18,4 +19,5 @@ class Connection():
         
         self.Node1 = _Node1
         self.Node2 = _Node2
+        self.Weight = r.random()
         

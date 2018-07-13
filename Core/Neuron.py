@@ -7,6 +7,8 @@ Created on Thu Jul 12 23:09:59 2018
 Neurons of a network
 """
 
+import random as r
+
 class Neuron():
     
     Connections = []
@@ -15,7 +17,7 @@ class Neuron():
     def __init__(self):
         
         self.Connections = []
-        self.Bias = 0
+        self.Bias = r.random()
         
     #add a new connection to the network
     def addConnection(self, connection):
