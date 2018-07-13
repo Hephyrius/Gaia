@@ -48,13 +48,67 @@ class FeedForwardNetwork():
                     for k in self.Layers[i+1]:
                     
                         connection = Con.Connection(j,k)
-                        j.addConnection(connection)
+                        j.addOutConnection(connection)
+                        k.addInConnection(connection)
+                        
     
     #Feed Forward
-    def predict(self):
+    def predict(self, _inputs):
+        
         print("Feeding Forward!")
         
+        for i in range(len(_inputs)):
+            Network.Layers[0][i].Value = _inputs[i]
+        
+        for i in range(1, len(self.Layers)):
+            
+            for j in self.Layers[i]:
+                
+                nodeValue = 0
+                
+                for k in j.ConnectionsIn:
+                    
+                    nodeValue += (k.Weight * k.Node1.Value)
+                
+                #print(nodeValue)
+                j.Value = nodeValue
+        
+        outputs = []
+        
+        for i in self.Layers[len(self.Layers)-1]:
+            
+            outputs.append(i.Value)
+        
+        return outputs
+                
+                
     
                     
-Network = FeedForwardNetwork([2,5,5,1])
-Network.predict()
+Network = FeedForwardNetwork([2,5,5,10])
+preds = Network.predict([5,5])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
