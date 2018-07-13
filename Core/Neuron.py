@@ -11,20 +11,29 @@ import random as r
 
 class Neuron():
     
-    Connections = []
+    ConnectionsIn = []
+    ConnectionsOut = []
     Bias = 0
+    Value = 0
+    ActivatedAdjustedValue = 0
     
     def __init__(self):
         
-        self.Connections = []
+        self.ConnectionsIn = []
+        self.ConnectionsOut = []
         self.Bias = r.random()
+        self.Value = 0
+        self.ActivatedAdjustedValue = 0
         
     #add a new connection to the network
-    def addConnection(self, connection):
+    def addInConnection(self, connection):
         
-        self.Connections.append(connection)
+        self.ConnectionsIn.append(connection)
         
+    #add a new connection to the network
+    def addOutConnection(self, connection):
         
+        self.ConnectionsOut.append(connection)
         
         
         

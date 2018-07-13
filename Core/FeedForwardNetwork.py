@@ -9,15 +9,19 @@ Feed Forward Network
 
 import Neuron as Node
 import Connection as Con
+import numpy as np
+import math
 
 class FeedForwardNetwork():
     
     Layers = []
+    Fitness = 0
     
     def __init__(self, _LayerSizes):
         
         self.Layers = []
         self.CreateNetwork(_LayerSizes)
+        self.Fitness = 0
     
     
     def CreateNetwork(self, _LayerSizes):
@@ -37,7 +41,7 @@ class FeedForwardNetwork():
     def ConnectLayers(self):
         
         Length = len(self.Layers)
-        print(Length)
+        #print(Length)
                 
         for i in range(len(self.Layers)):
             
@@ -48,13 +52,77 @@ class FeedForwardNetwork():
                     for k in self.Layers[i+1]:
                     
                         connection = Con.Connection(j,k)
-                        j.addConnection(connection)
+                        j.addOutConnection(connection)
+                        k.addInConnection(connection)
+                        
     
     #Feed Forward
-    def predict(self):
-        print("Feeding Forward!")
+    def predict(self, _inputs):
         
-    
+        #print("Feeding Forward!")
+        
+        for i in range(len(_inputs)):
+            self.Layers[0][i].Value = _inputs[i]
+            self.Layers[0][i].ActivatedAdjustedValue = self.Layers[0][i].Value #self.Tanh(self.Layers[0][i].Value+self.Layers[0][i].Bias)
+        
+        for i in range(1, len(self.Layers)):
+            
+            for j in self.Layers[i]:
+                
+                nodeValue = 0
+                
+                for k in j.ConnectionsIn:
                     
-Network = FeedForwardNetwork([2,5,5,1])
-Network.predict()
+                    nodeValue += (np.dot(k.Weight, k.Node1.ActivatedAdjustedValue)) #+ k.Node2.Bias
+                
+                #print(nodeValue)
+                j.Value = nodeValue
+                j.ActivatedAdjustedValue = self.sigmoid(j.Value)
+                
+        outputs = []
+        
+        for i in self.Layers[len(self.Layers)-1]:
+            
+            outputs.append(i.Value)
+        
+        return outputs
+                
+
+    def sigmoid(self, x):
+        
+        return np.sinh(x)
+        #return 1 / (1 + math.exp(-x))           
+    
+    def Tanh(self, x):
+        
+        return np.tanh(x)
+    
+    
+#Network = FeedForwardNetwork([1,5,5,10])
+#preds = Network.predict([8])
+#prediction = np.argmax(preds)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
