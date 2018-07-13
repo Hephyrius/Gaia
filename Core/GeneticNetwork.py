@@ -6,6 +6,7 @@ Created on Fri Jul 13 19:10:56 2018
 """
 import FeedForwardNetwork as FFN
 import numpy as np
+import pandas as pd
 import copy
 import random as r
 
@@ -214,15 +215,34 @@ class GeneticNetwork():
             self.Population = NewPopulation
                     
         
+
+iris = pd.read_csv("testdata/iris.csv")
+cols = iris.columns
+X = []
+Y = []
+iris['label'] = iris['label'].astype('category')
+iris['label'] = iris['label'].cat.codes
+
+for c, i in iris.iterrows():
     
-        
+    row = []
+    row.append(i['1'])
+    row.append(i['2'])
+    row.append(i['3'])
+    row.append(i['4'])
+    X.append(row)
+    
+    Y.append(i['label'])
+    
+#%%
 data = [[0,0],[0,1],[1,0],[1,1]]
 targets = [1,0,0,1]        
         
-GA = GeneticNetwork(50, [2,2,2,2])
-GA.AssessPopulation(data, targets)
+GA = GeneticNetwork(100, [4,8,3])
 
-GA.Neat(data, targets, 100)
+GA.Neat(X, Y, 100)
+
+
 
 #GA.Mutate(Net2)
 #
@@ -230,11 +250,6 @@ GA.Neat(data, targets, 100)
 #print(Net1.Layers[0][0].ConnectionsOut[0].Weight)
 
 
-#%%
-
-net = GA.Population[0]
-s = net.predict([1,1])
-pred = np.argmax(s)
 
 
 
