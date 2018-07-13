@@ -9,6 +9,8 @@ Feed Forward Network
 
 import Neuron as Node
 import Connection as Con
+import numpy as np
+import math
 
 class FeedForwardNetwork():
     
@@ -59,6 +61,7 @@ class FeedForwardNetwork():
         
         for i in range(len(_inputs)):
             Network.Layers[0][i].Value = _inputs[i]
+            Network.Layers[0][i].ActivatedAdjustedValue = self.sigmoid(Network.Layers[0][i].Value)
         
         for i in range(1, len(self.Layers)):
             
@@ -68,25 +71,29 @@ class FeedForwardNetwork():
                 
                 for k in j.ConnectionsIn:
                     
-                    nodeValue += (k.Weight * k.Node1.Value)
+                    nodeValue += (k.Weight * k.Node1.ActivatedAdjustedValue)
                 
                 #print(nodeValue)
                 j.Value = nodeValue
-        
+                j.ActivatedAdjustedValue = self.sigmoid(j.Value)
+                
         outputs = []
         
         for i in self.Layers[len(self.Layers)-1]:
             
-            outputs.append(i.Value)
+            outputs.append(i.ActivatedAdjustedValue)
         
         return outputs
                 
-                
+
+    def sigmoid(self, x):
+        
+        return 1 / (1 + math.exp(-x))           
     
                     
-Network = FeedForwardNetwork([2,5,5,10])
-preds = Network.predict([5,5])
-
+Network = FeedForwardNetwork([1,5,5,10])
+preds = Network.predict([8])
+prediction = np.argmax(preds)
 
 
 

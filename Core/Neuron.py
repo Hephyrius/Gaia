@@ -15,6 +15,7 @@ class Neuron():
     ConnectionsOut = []
     Bias = 0
     Value = 0
+    ActivatedAdjustedValue = 0
     
     def __init__(self):
         
@@ -22,6 +23,7 @@ class Neuron():
         self.ConnectionsOut = []
         self.Bias = 0
         self.Value = 0
+        self.ActivatedAdjustedValue = 0
         
     #add a new connection to the network
     def addInConnection(self, connection):
