@@ -47,7 +47,7 @@ Although if you do use it in anything accademic, please cite me! it would be app
 
 ### Init a Neuro Evolution :
 
-''' python
+```python
 
 import GeneticNetwork as GA
 
@@ -55,12 +55,12 @@ LayerSizes = [4,16,3]
 PopSize = 20
 NeuroEvo = GA.GeneticNetwork(PopSize,LayerSizes)
 
-'''
+```
 
 ### "Fitting"
 
 
-''' python
+```python
 
 X = TrainingFeatures
 Y = ClassLabels
@@ -68,11 +68,11 @@ Iterations = 1000
 
 NeuroEvo.Neat(X, Y, Iterations)
 
-'''
+```
 
 ### Using The Results
 
-''' python
+```python
 import numpy as np
 
 Network = NeuroEvo.Population[0]
@@ -81,7 +81,7 @@ NewData = [21231,12313,1231, 1]
 preds = Network.predict(NewData)
 class = np.argmax(preds)
 
-'''
+```
 
 ## Citation
 
