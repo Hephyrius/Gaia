@@ -57,11 +57,11 @@ class FeedForwardNetwork():
     #Feed Forward
     def predict(self, _inputs):
         
-        print("Feeding Forward!")
+        #print("Feeding Forward!")
         
         for i in range(len(_inputs)):
-            Network.Layers[0][i].Value = _inputs[i]
-            Network.Layers[0][i].ActivatedAdjustedValue = self.sigmoid(Network.Layers[0][i].Value)
+            self.Layers[0][i].Value = _inputs[i]
+            self.Layers[0][i].ActivatedAdjustedValue = self.sigmoid(self.Layers[0][i].Value)
         
         for i in range(1, len(self.Layers)):
             
@@ -71,7 +71,7 @@ class FeedForwardNetwork():
                 
                 for k in j.ConnectionsIn:
                     
-                    nodeValue += (k.Weight * k.Node1.ActivatedAdjustedValue)
+                    nodeValue += (k.Weight * k.Node1.ActivatedAdjustedValue) #+ k.Node2.Bias
                 
                 #print(nodeValue)
                 j.Value = nodeValue
@@ -91,9 +91,9 @@ class FeedForwardNetwork():
         return 1 / (1 + math.exp(-x))           
     
                     
-Network = FeedForwardNetwork([1,5,5,10])
-preds = Network.predict([8])
-prediction = np.argmax(preds)
+#Network = FeedForwardNetwork([1,5,5,10])
+#preds = Network.predict([8])
+#prediction = np.argmax(preds)
 
 
 
