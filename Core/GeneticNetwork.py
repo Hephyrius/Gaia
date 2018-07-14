@@ -84,23 +84,35 @@ class GeneticNetwork():
         return NewNet
     
     #crossover style using a the mean of the weights and biases
-    def Crossover(self, Network1, Network2):
+    def Crossover(self, newNet, Network1, Network2):
 
         newNet = FFN.FeedForwardNetwork(self.NetworkSize)
         
         for i in range(len(newNet.Layers)):
             
-            if i != len(newNet.Layers) -1:
+            if i != len(newNet.Layers):
                 
                 for j in range(len(newNet.Layers[i])):
                     
                     for k in range(len(newNet.Layers[i][j].ConnectionsIn)):
+                        val = r.random()
                         
-                        newNet.Layers[i][j].ConnectionsIn[k].Weight = (Network1.Layers[i][j].ConnectionsIn[k].Weight + Network2.Layers[i][j].ConnectionsIn[k].Weight)/2
-                    
-                    newNet.Layers[i][j] = (Network1.Layers[i][j].Bias + Network2.Layers[i][j].Bias)/2
-        
-        return newNet
+                        if val <= 0.5:
+                        
+                            newNet.Layers[i][j].ConnectionsIn[k].Weight = 0+Network1.Layers[i][j].ConnectionsIn[k].Weight
+                            
+                        else:
+                            
+                            newNet.Layers[i][j].ConnectionsIn[k].Weight = 0+Network2.Layers[i][j].ConnectionsIn[k].Weight
+                                
+                    val = r.random()
+                    if val <= 0.5:
+                        
+                        newNet.Layers[i][j] = 0+Network1.Layers[i][j].Bias
+                    else:
+                        newNet.Layers[i][j] = 0+Network2.Layers[i][j].Bias
+                        
+
                         
     
     #mutate a network
@@ -193,21 +205,28 @@ class GeneticNetwork():
                 
                 operation = r.random()
                 
-                if operation <=0.9:
+                if operation <=0.25:
                     
                     net = r.randrange(0,self.PopulationSize/2)
                     newNet = self.CopyNetworkIndex(net)
                     self.Mutate(newNet)
                     NewPopulation.append(newNet)
                 
-#                elif operation <= 1:
-#                    
-#                    net1 = r.randrange(2,self.PopulationSize/2)
-#                    net2 = r.randrange(2,self.PopulationSize/2)
-#                    
-#                    net3 = self.Crossover(self.Population[net1], self.Population[net2])
-#                    NewPopulation.append(net3)
-#                
+                elif operation <= 0.75:
+                    
+                    net1 = int(r.randrange(0,self.PopulationSize/2))
+                    net2 = int(r.randrange(0,self.PopulationSize/2))
+                    net3 = FFN.FeedForwardNetwork(self.NetworkSize)
+                    self.Crossover(net3, self.Population[net1], self.Population[net2])
+                    NewPopulation.append(net3)
+                    
+                elif operation <= 0.9:
+                    net1 = int(r.randrange(0,self.PopulationSize/2))
+                    net2 = int(r.randrange(0,self.PopulationSize/2))
+                    net3 = FFN.FeedForwardNetwork(self.NetworkSize)
+                    self.Crossover(net3, self.Population[net1], self.Population[net2])
+                    self.Mutate(net3)
+                    NewPopulation.append(net3)
                 else: 
                     #print(self.NetworkSize)
                     NewPopulation.append(FFN.FeedForwardNetwork(self.NetworkSize))

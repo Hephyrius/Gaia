@@ -43,7 +43,7 @@ labs = titanicData['Survived']
 titanicData = titanicData.drop(['Survived'], axis=1)
 fulldata = pd.concat([titanicData, titanicTest])
 ind = len(titanicData)
-
+fulldata = fulldata.drop(['Name','Ticket'], axis=1)
 Cols = ['Name', 'Sex', 'Ticket', 'Cabin', 'Embarked']
     
 for i in fulldata.columns:
@@ -76,8 +76,8 @@ for c, i in titanicTest.iterrows():
 
 #%%
         
-GA = Gen.GeneticNetwork(20, [11,44,2])
-GA.Neat(TitanicX, TitanicY, 100)
+GA = Gen.GeneticNetwork(20, [4,16,3])
+GA.Neat(X, Y, 100)
 
 
 
