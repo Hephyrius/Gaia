@@ -44,6 +44,7 @@ Although if you do use it in anything accademic, please cite me! it would be app
 * Test data is a list of list of numbers
 * Class data is a list of numbers
 * All data must be numeric!
+* The Neuro Evolution Algorithm tries to MAXIMISE the fitness function. The fitness function is the ACCURACY of the individual model.
 
 ## Usage:
 
