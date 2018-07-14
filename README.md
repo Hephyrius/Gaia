@@ -82,7 +82,7 @@ Network = NeuroEvo.Population[0]
 NewData = [21231,12313,1231, 1]
 
 preds = Network.predict(NewData)
-class = np.argmax(preds)
+PredictionClass = np.argmax(preds)
 
 ```
 
