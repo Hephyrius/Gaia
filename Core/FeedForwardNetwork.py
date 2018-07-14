@@ -77,7 +77,7 @@ class FeedForwardNetwork():
                 
                 #print(nodeValue)
                 j.Value = nodeValue
-                j.ActivatedAdjustedValue = self.sigmoid(j.Value)
+                j.ActivatedAdjustedValue = self.sinh(j.Value)
                 
         outputs = []
         
@@ -88,10 +88,15 @@ class FeedForwardNetwork():
         return outputs
                 
 
-    def sigmoid(self, x):
+    def sinh(self, x):
         
         return np.sinh(x)
-        #return 1 / (1 + math.exp(-x))           
+       
+        
+    def sigmoid(self, x):
+        
+
+        return 1 / (1 + math.exp(-x))   
     
     def Tanh(self, x):
         
