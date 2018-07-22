@@ -7,6 +7,7 @@ Created on Sun Jul 22 07:34:01 2018
 import random as r
 import FeedForwardNetwork as FFN
 import numpy as np
+import pandas as pd
 
 class NeuralSwarm():
     #Hyper Parameters
@@ -132,7 +133,7 @@ class NeuralSwarm():
                     self.SwarmPopulations[SwarmNumber] = net
         
     #uodate velocities
-    def UpdateVelocities(self, Network, BestNetwork):
+    def UpdateVelocities(self, Network, BestNetwork, GlobalNetwork):
         
         for i in range(len(Network.Layers)):
             
@@ -143,19 +144,33 @@ class NeuralSwarm():
                     for k in range(len(Network.Layers[i][j].ConnectionsIn)):
                         Rp = r.random()
                         Rg = r.random()
+                        WeightG = 0.1
+                        WeightP = 0.1
                         
-                        #Pi = (BestNetwork.Layers[i][j].ConnectionsIn[k].Weight - Network.Layers[i][j].ConnectionsIn[k].Weight)
+                        Pi = (BestNetwork.Layers[i][j].ConnectionsIn[k].Weight - Network.Layers[i][j].ConnectionsIn[k].Weight) * Rp * WeightP
+                        Pg = (GlobalNetwork.Layers[i][j].ConnectionsIn[k].Weight - Network.Layers[i][j].ConnectionsIn[k].Weight) * Rg * WeightG
+                        V = Pi+Pg
+                        
+                        Network.Layers[i][j].ConnectionsIn[k].Weight += V
     
     #find the avarage/middle values of the swarm            
     def GlobalPosition(self, SwarmNumber):
         
         #create a placeholder network to deal with the position of the swarm
-        GlobalPosition = FFN.FeedForwardNetwork(self.SwarmNetworkSizes[SwarmNumber])
+        GlobalNet = FFN.FeedForwardNetwork(self.SwarmNetworkSizes[SwarmNumber])
         
         for i in range(len(self.SwarmPopulations[SwarmNumber][0].Layers)):
                 if i != len(self.SwarmPopulations[SwarmNumber][0].Layers) - 1:
                     
                     for j in range(len(self.SwarmPopulations[SwarmNumber][0].Layers[i])):
+                        
+                        for k in range(len(self.SwarmPopulations[SwarmNumber][0].Layers[i][j].ConnectionsIn)):
+                            
+                            for l in range(self.SwarmSize):
+                                GlobalNet.Layers[i][j].ConnectionsIn[k].Weight += self.SwarmPopulations[SwarmNumber][l].Layers[i][j].ConnectionsIn[k].Weight
+                            
+                            GlobalNet.Layers[i][j].ConnectionsIn[k].Weight /= self.SwarmSize
+        return GlobalNet
             
         
     
@@ -169,22 +184,44 @@ class NeuralSwarm():
             
                 bf, bi = self.AssessPopulation(i, X, Y)
                 BestIndiv = self.SwarmPopulations[i][bi]
+                GlobalNet = self.GlobalPosition(i)
                 
+                for k in range(self.SwarmSize):
+                    IndivNet = self.SwarmPopulations[i][k]
+                    self.UpdateVelocities(IndivNet, BestIndiv, GlobalNet)
                 
             bests.append(BestIndiv)
-            return bests
+        
+        return bests
         
   
     
-HiveMind = NeuralSwarm(3,2,50,10)            
-
-
+           
 ##TESTING
-data = [[0,0,0],[0,0,1],[0,1,0],[0,1,1],[1,0,0],[1,0,1],[1,1,0],[1,1,1]]
-targets = [1,0,0,1,0,1,1,0]               
+
+HiveMind = NeuralSwarm(4,3,50,1) 
+
+#Iris Data:
+iris = pd.read_csv("testdata/iris.csv")
+cols = iris.columns
+X = []
+Y = []
+iris['label'] = iris['label'].astype('category')
+iris['label'] = iris['label'].cat.codes
+
+for c, i in iris.iterrows():
+    
+    row = []
+    row.append(i['1'])
+    row.append(i['2'])
+    row.append(i['3'])
+    row.append(i['4'])
+    X.append(row)
+    
+    Y.append(i['label'])        
 
 
-HiveMind.Optimize(1, data, targets)
+HiveMind.Optimize(100, X, Y)
 
 
 
