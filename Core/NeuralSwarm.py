@@ -44,7 +44,7 @@ class NeuralSwarm():
             NetworkSize.append(self.InputSize)
             HiddenSize = r.randint(1,2)
             for j in range(HiddenSize):
-                NetworkSize.append(r.randint(2,(8*self.InputSize)))
+                NetworkSize.append(r.randint(2,(5*self.InputSize)))
                 
             NetworkSize.append(self.OutputSize)
             
@@ -169,7 +169,6 @@ class NeuralSwarm():
         if Network.Fitness> Orig.Fitness:
 
             NetworkToReturn = Network
-            
             if Network.Fitness> GlobalNetwork.Fitness:
                 
                 UpdateGlobal = True
