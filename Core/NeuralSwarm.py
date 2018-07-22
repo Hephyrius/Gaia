@@ -8,6 +8,7 @@ import random as r
 import FeedForwardNetwork as FFN
 import numpy as np
 import pandas as pd
+import copy
 
 class NeuralSwarm():
     #Hyper Parameters
@@ -30,7 +31,6 @@ class NeuralSwarm():
         self.TotalSwarms = _TotalSwarms
         self.SwarmPopulations = []
         self.SwarmNetworkSizes = []
-        self.SwarmParticleVelocities = []
         
         #initialise the networks in the swarms
         self.initSwarms()
@@ -59,25 +59,7 @@ class NeuralSwarm():
                 Population.append(partical)
             
             self.SwarmPopulations.append(Population)
-            
-            #init the velocities for each connection
-            for l in range(self.SwarmSize):
-                PopulationVelocities = []
-                IndivVelocities = []
-                for j in NetworkSize:
-                    
-                    LayerVelocities = []
-                    for k in range(j):
-                       LayerVelocities.append(r.random())
-                      
-                    IndivVelocities.append(LayerVelocities)
-                
-                PopulationVelocities.append(IndivVelocities)
-            
-            self.SwarmParticleVelocities.append(PopulationVelocities)
-                    
-                    
-            
+
     #assess the fitness of a single network
     def AssessNetworkAccuracy(self, SwarmNumber, NetworkNumber, X, Y):
         
@@ -96,7 +78,24 @@ class NeuralSwarm():
         
         Fitness = Accuracy/TotalValues
         Network.Fitness = Fitness
-    
+
+    #assess the fitness of a single network
+    def AssessAccuracy(self, Network, X, Y):
+
+        TotalValues = len(Y)
+        Accuracy = 0
+        
+        for i in range(len(Y)):
+            #print(i)
+            prediction = Network.predict(X[i])
+            
+            if np.argmax(prediction) == Y[i]:
+                #print(np.argmax(prediction))
+                Accuracy += 1
+        
+        Fitness = Accuracy/TotalValues
+        Network.Fitness = Fitness
+
     #Assess the entire population
     def AssessPopulation(self, SwarmNumber, X, Y):
         
@@ -133,7 +132,12 @@ class NeuralSwarm():
                     self.SwarmPopulations[SwarmNumber] = net
         
     #uodate velocities
-    def UpdateVelocities(self, Network, BestNetwork, GlobalNetwork):
+    def UpdateVelocities(self, Network, BestNetwork, GlobalNetwork, X, Y):
+        
+        WeightG = 0.05
+        WeightP = 0.05
+        W = 0.05
+        Orig = copy.deepcopy(Network)
         
         for i in range(len(Network.Layers)):
             
@@ -144,14 +148,38 @@ class NeuralSwarm():
                     for k in range(len(Network.Layers[i][j].ConnectionsIn)):
                         Rp = r.random()
                         Rg = r.random()
-                        WeightG = 0.1
-                        WeightP = 0.1
+
                         
                         Pi = (BestNetwork.Layers[i][j].ConnectionsIn[k].Weight - Network.Layers[i][j].ConnectionsIn[k].Weight) * Rp * WeightP
                         Pg = (GlobalNetwork.Layers[i][j].ConnectionsIn[k].Weight - Network.Layers[i][j].ConnectionsIn[k].Weight) * Rg * WeightG
-                        V = Pi+Pg
+                        V =  (W*Network.Layers[i][j].ConnectionsIn[k].Velocity) + Pi + Pg
                         
+                        Network.Layers[i][j].ConnectionsIn[k].Velocity = V
                         Network.Layers[i][j].ConnectionsIn[k].Weight += V
+                        
+                        Orig.Layers[i][j].ConnectionsIn[k].Velocity = V
+                        
+        self.AssessAccuracy(Network, X, Y)
+        self.AssessAccuracy(Orig, X, Y)
+        self.AssessAccuracy(GlobalNetwork, X, Y)
+        
+        UpdateGlobal = False
+        NetworkToReturn = Orig
+        
+        if Network.Fitness> Orig.Fitness:
+
+            NetworkToReturn = Network
+            
+            if Network.Fitness> GlobalNetwork.Fitness:
+                
+                UpdateGlobal = True
+                
+        
+        return NetworkToReturn, UpdateGlobal
+            
+            
+                            
+                            
     
     #find the avarage/middle values of the swarm            
     def GlobalPosition(self, SwarmNumber):
@@ -188,7 +216,13 @@ class NeuralSwarm():
                 
                 for k in range(self.SwarmSize):
                     IndivNet = self.SwarmPopulations[i][k]
-                    self.UpdateVelocities(IndivNet, BestIndiv, GlobalNet)
+                    NewNet, UpdateGlobal = self.UpdateVelocities(IndivNet, BestIndiv, GlobalNet, X, Y)
+                    self.SwarmPopulations[i][k] = NewNet
+                    
+                    if UpdateGlobal == True:
+                        
+                        GlobalNet = self.GlobalPosition(i)
+                    
                 
             bests.append(BestIndiv)
         
