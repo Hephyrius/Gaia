@@ -20,5 +20,5 @@ class Connection():
         self.Node1 = _Node1
         self.Node2 = _Node2
         self.Weight = r.random()
-        self.Velocity =  r.random()
+        self.Velocity =  r.uniform(-1,1)
         

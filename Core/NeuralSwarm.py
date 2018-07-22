@@ -44,7 +44,7 @@ class NeuralSwarm():
             NetworkSize.append(self.InputSize)
             HiddenSize = r.randint(1,2)
             for j in range(HiddenSize):
-                NetworkSize.append(r.randint(2,(5*self.InputSize)))
+                NetworkSize.append(r.randint(2,4))
                 
             NetworkSize.append(self.OutputSize)
             
@@ -134,9 +134,9 @@ class NeuralSwarm():
     #uodate velocities
     def UpdateVelocities(self, Network, BestNetwork, GlobalNetwork, X, Y):
         
-        WeightG = 0.05
-        WeightP = 0.05
-        W = 0.05
+        WeightG = 0.5
+        WeightP = 0.5
+        W = 0.9
         Orig = copy.deepcopy(Network)
         
         for i in range(len(Network.Layers)):
@@ -146,8 +146,8 @@ class NeuralSwarm():
                 for j in range(len(Network.Layers[i])):
                     
                     for k in range(len(Network.Layers[i][j].ConnectionsIn)):
-                        Rp = r.random()
-                        Rg = r.random()
+                        Rp = r.uniform(-1,1)
+                        Rg = r.uniform(-1,1)
 
                         
                         Pi = (BestNetwork.Layers[i][j].ConnectionsIn[k].Weight - Network.Layers[i][j].ConnectionsIn[k].Weight) * Rp * WeightP
@@ -232,7 +232,7 @@ class NeuralSwarm():
            
 ##TESTING
 
-HiveMind = NeuralSwarm(4,3,50,1) 
+HiveMind = NeuralSwarm(4,3,20,1) 
 
 #Iris Data:
 iris = pd.read_csv("testdata/iris.csv")
