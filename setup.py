@@ -15,7 +15,7 @@ Supervised and Reinforcement Learning Scenarios.
 It is built from the ground up, Making use of only Numpy in its Core Code.
 
 Ki is compatible with Python 3+
-and is distributed under the GPLv3 license.
+and is distributed under the Eclipse Public License 2.0.
 '''
 
 setup(name='Ki',
@@ -36,7 +36,7 @@ setup(name='Ki',
           'Intended Audience :: Developers',
           'Intended Audience :: Education',
           'Intended Audience :: Science/Research',
-          'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
+          'License :: OSI Approved :: Eclipse Public License 2.0 (EPL-2.0)',
           'Programming Language :: Python :: 3',
           'Programming Language :: Python :: 3.6',
           'Topic :: Software Development :: Libraries',
