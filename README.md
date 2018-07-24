@@ -60,7 +60,7 @@ Although if you do use it in anything accademic, please cite me! it would be app
 
 ```python
 
-From Ki.Core import GeneticNetwork as GA
+from Ki.Core import GeneticNetwork as GA
 
 LayerSizes = [4,16,3]
 PopSize = 20
