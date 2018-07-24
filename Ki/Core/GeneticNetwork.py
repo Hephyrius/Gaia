@@ -173,12 +173,15 @@ class GeneticNetwork():
                         j.Bias *= factor
                             
     #do the entire GA process
-    def Fit(self, X, Y, NumIterations):
+    def Fit(self, X, Y, NumIterations, Custom=False, Function=AssessPopulation):
         
         for i in range(NumIterations):
             
             #assess the networks
-            self.AssessPopulation(X, Y)
+            if Custom == False:
+                self.Function(X, Y)
+            else:
+                Function(self, X, Y)
             
             #sort the population in fitness order
             for j in range(len(self.Population)):

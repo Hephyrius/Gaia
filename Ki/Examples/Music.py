@@ -129,7 +129,7 @@ seed.append([67, 71, 79,128, 67, 71, 128,128,67, 128, 74, 128,74, 79, 128,71])
 seed.append([71, 76, 128,71, 128,71, 74, 128,74, 128,72, 74,128, 72,128, 69])
 y = [1]
 #%%
-GA.Neat(seed, y, 10, True, AssessAllNetworks)
+GA.Fit(seed, y, 10, True, AssessAllNetworks)
 
 
 
