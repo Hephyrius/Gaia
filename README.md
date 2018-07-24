@@ -16,18 +16,22 @@ Although if you do use it in anything accademic, please cite me! it would be app
 
 /Core/TestData/ - This folder contains data used in testing
 
-### NeuroEvolutionary Classes:
+### Python Classes:
 
 /Core/Neuron.py - This class is used for the neurons within the neural network
 /Core/Connection.py - This class stores connection values between neurons
 /Core/FeedForward.py - This class is a basic feed forward neural network WITHOUT back propergation
-/Core/GeneticNetwork.py - This class is the GA optomiser for the FeedForward neural network!
+/Core/GeneticNetwork.py - This class is the GA optomiser for the FeedForward neural network
+/Core/NeuralSwarm.py - This class combines Particle Swarm Optimisation with neural networks
+/Core/TestModels.py - This class tests the models across common datasets
 
-## Algorithm Scores
+### Reinforcement-Learning Branches
 
-### NeuroEvolutionary:
-* Iris: 98% 
-* Xor / AND : 75%
+/Core/ReinforcementTest.py - This class tests the Genetic model on the OpenAI gym cartpole challenge. - See the Reinforcement-Learning branch for this
+
+### Reinfrocement Music Branch
+
+/Core/GeneticMusic.py - This class generates MIDI music by generating compositions and asking the user for a fitness score for each generated output. See the Music branch for this file.
 
 ## Sources: 
 [1] IRIS dataset - https://archive.ics.uci.edu/ml/datasets/iris [TestData/Iris]
@@ -45,6 +49,7 @@ Although if you do use it in anything accademic, please cite me! it would be app
 * Class data is a list of numbers
 * All data must be numeric!
 * The Neuro Evolution Algorithm tries to MAXIMISE the fitness function. The fitness function is the ACCURACY of the individual model.
+* The Particle Swarm also tries to maxmise the accuracy function.
 
 ## Usage:
 
