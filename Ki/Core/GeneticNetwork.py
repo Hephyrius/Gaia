@@ -27,7 +27,7 @@ class GeneticNetwork():
         #initialise the starting population
         for i in range(self.PopulationSize):
             
-            self.Population.append(FFN.FeedForwardNetwork(self.NetworkSize))
+            self.Population.append(FFN(self.NetworkSize))
     
     
     #assess the fitness of a single network
@@ -86,7 +86,7 @@ class GeneticNetwork():
     #crossover style using a the mean of the weights and biases
     def Crossover(self, newNet, Network1, Network2):
 
-        newNet = FFN.FeedForwardNetwork(self.NetworkSize)
+        newNet = FFN(self.NetworkSize)
         
         for i in range(len(newNet.Layers)):
             
@@ -173,7 +173,7 @@ class GeneticNetwork():
                         j.Bias *= factor
                             
     #do the entire GA process
-    def Neat(self, X, Y, NumIterations):
+    def Fit(self, X, Y, NumIterations):
         
         for i in range(NumIterations):
             
@@ -216,19 +216,19 @@ class GeneticNetwork():
                     
                     net1 = int(r.randrange(0,self.PopulationSize/2))
                     net2 = int(r.randrange(0,self.PopulationSize/2))
-                    net3 = FFN.FeedForwardNetwork(self.NetworkSize)
+                    net3 = FFN(self.NetworkSize)
                     self.Crossover(net3, self.Population[net1], self.Population[net2])
                     NewPopulation.append(net3)
                     
                 elif operation <= 0.9:
                     net1 = int(r.randrange(0,self.PopulationSize/2))
                     net2 = int(r.randrange(0,self.PopulationSize/2))
-                    net3 = FFN.FeedForwardNetwork(self.NetworkSize)
+                    net3 = FFN(self.NetworkSize)
                     self.Crossover(net3, self.Population[net1], self.Population[net2])
                     self.Mutate(net3)
                     NewPopulation.append(net3)
                 else: 
                     #print(self.NetworkSize)
-                    NewPopulation.append(FFN.FeedForwardNetwork(self.NetworkSize))
+                    NewPopulation.append(FFN(self.NetworkSize))
             
             self.Population = NewPopulation

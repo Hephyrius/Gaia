@@ -31,7 +31,7 @@ class FeedForwardNetwork():
             Layer = []
             
             for j in range(i):
-                N = Node.Neuron()
+                N = Node()
                 Layer.append(N)
             
             self.Layers.append(Layer)
@@ -51,7 +51,7 @@ class FeedForwardNetwork():
                     
                     for k in self.Layers[i+1]:
                     
-                        connection = Con.Connection(j,k)
+                        connection = Con(j,k)
                         j.addOutConnection(connection)
                         k.addInConnection(connection)
                         

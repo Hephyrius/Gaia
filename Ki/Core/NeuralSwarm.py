@@ -54,7 +54,7 @@ class NeuralSwarm():
             #add networks to pop and then add pop to totalpops
             for j in range(self.SwarmSize):
                 
-                partical = FFN.FeedForwardNetwork(NetworkSize)
+                partical = FFN(NetworkSize)
                 Population.append(partical)
             
             self.SwarmPopulations.append(Population)
@@ -183,7 +183,7 @@ class NeuralSwarm():
     def GlobalPosition(self, SwarmNumber):
         
         #create a placeholder network to deal with the position of the swarm
-        GlobalNet = FFN.FeedForwardNetwork(self.SwarmNetworkSizes[SwarmNumber])
+        GlobalNet = FFN(self.SwarmNetworkSizes[SwarmNumber])
         
         for i in range(len(self.SwarmPopulations[SwarmNumber][0].Layers)):
                 if i != len(self.SwarmPopulations[SwarmNumber][0].Layers) - 1:
@@ -201,7 +201,7 @@ class NeuralSwarm():
         
     
     #optimize the swarms for x iterations
-    def Optimize(self, iterations, X, Y):
+    def Fit(self, iterations, X, Y):
         bests = []
         
         for i in range(self.TotalSwarms):
