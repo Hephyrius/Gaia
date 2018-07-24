@@ -20,19 +20,22 @@ Although if you do use it in anything accademic, please cite me! it would be app
 ### Python Classes:
 
 /Core/Neuron.py - This class is used for the neurons within the neural network
+
 /Core/Connection.py - This class stores connection values between neurons
+
 /Core/FeedForward.py - This class is a basic feed forward neural network WITHOUT back propergation
+
 /Core/GeneticNetwork.py - This class is the GA optomiser for the FeedForward neural network
+
 /Core/NeuralSwarm.py - This class combines Particle Swarm Optimisation with neural networks
-/Ki/Examples/TestModels.py - This class tests the models across common datasets
 
-### Reinforcement-Learning Branches
+### Examples:
 
-/Core/ReinforcementTest.py - This class tests the Genetic model on the OpenAI gym cartpole challenge. - See the Reinforcement-Learning branch for this
+/Ki/Examples/XorAndToyTest.py - This class tests the Neural Swarm Algorithm on the Xor/And Toy Example
 
-### Reinfrocement Music Branch
+/Ki/Examples/Music.py - This class generates MIDI music by generating compositions and asking the user for a fitness score for each generated output
 
-/Core/GeneticMusic.py - This class generates MIDI music by generating compositions and asking the user for a fitness score for each generated output. See the Music branch for this file.
+/Ki/Cartpole.py - This class tests the Genetic model on the OpenAI gym cartpole environment.
 
 ## Requirements:
 
@@ -77,7 +80,7 @@ X = TrainingFeatures
 Y = ClassLabels
 Iterations = 1000
 
-NeuroEvo.Neat(X, Y, Iterations)
+NeuroEvo.Fit(X, Y, Iterations)
 
 ```
 
