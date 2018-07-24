@@ -3,3 +3,4 @@ dist/
 *.csv
 build/
 ki.egg-info/
+*.mid
