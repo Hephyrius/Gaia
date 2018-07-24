@@ -41,6 +41,5 @@ setup(name='Ki',
           'Programming Language :: Python :: 3.6',
           'Topic :: Software Development :: Libraries',
           'Topic :: Software Development :: Libraries :: Python Modules'
-          'Topic :: Scientific/Engineering :: Artificial Intelligence'
       ],
       packages=find_packages())
