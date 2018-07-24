@@ -1,6 +1,7 @@
-# Gaia 
+# Ki 
 
 Nature inspired ML and Heuristic Combos. For fun and science!
+Named after the Sumerian god of earth.
 
 ## Summary:
 
@@ -12,9 +13,9 @@ Although if you do use it in anything accademic, please cite me! it would be app
 
 ### Folders:
 
-/Core/ - This contains the Algorithms
+/Ki/Core/ - This contains the Algorithms
 
-/Core/TestData/ - This folder contains data used in testing
+/Ki/Examples/TestData/ - This folder contains data used in testing
 
 ### Python Classes:
 
@@ -23,7 +24,7 @@ Although if you do use it in anything accademic, please cite me! it would be app
 /Core/FeedForward.py - This class is a basic feed forward neural network WITHOUT back propergation
 /Core/GeneticNetwork.py - This class is the GA optomiser for the FeedForward neural network
 /Core/NeuralSwarm.py - This class combines Particle Swarm Optimisation with neural networks
-/Core/TestModels.py - This class tests the models across common datasets
+/Ki/Examples/TestModels.py - This class tests the models across common datasets
 
 ### Reinforcement-Learning Branches
 
@@ -33,14 +34,20 @@ Although if you do use it in anything accademic, please cite me! it would be app
 
 /Core/GeneticMusic.py - This class generates MIDI music by generating compositions and asking the user for a fitness score for each generated output. See the Music branch for this file.
 
-## Sources: 
-[1] IRIS dataset - https://archive.ics.uci.edu/ml/datasets/iris [TestData/Iris]
-
 ## Requirements:
 
 *Python 3.6
 *Numpy
+
+### Optional Requirements:
+
 *Pandas
+
+### Test/Example Requirements
+
+*Mido
+*Pandas
+*OpenAi Gym
 
 ## Useage Notes:
 
@@ -57,7 +64,7 @@ Although if you do use it in anything accademic, please cite me! it would be app
 
 ```python
 
-import GeneticNetwork as GA
+From Ki.Core import GeneticNetwork as GA
 
 LayerSizes = [4,16,3]
 PopSize = 20
@@ -93,11 +100,11 @@ PredictionClass = np.argmax(preds)
 
 ## Citation
 
-@misc{Khera2018Gaia,
-  title={Gaia},
+@misc{Khera2018Ki,
+  title={Ki},
   author={Khera, Harnick},
   year={2018},
-  howpublished={\url{https://github.com/hephyrius/Gaia}},
+  howpublished={\url{https://github.com/hephyrius/Ki}},
 }
 
 
