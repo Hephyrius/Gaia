@@ -36,18 +36,14 @@ Although if you do use it in anything accademic, please cite me! it would be app
 
 ## Requirements:
 
-*Python 3.6
-*Numpy
-
-### Optional Requirements:
-
-*Pandas
+* Python 3.6
+* Numpy
 
 ### Test/Example Requirements
 
-*Mido
-*Pandas
-*OpenAi Gym
+* Mido
+* Pandas
+* OpenAi Gym
 
 ## Useage Notes:
 
@@ -97,6 +93,9 @@ preds = Network.predict(NewData)
 PredictionClass = np.argmax(preds)
 
 ```
+## License:
+
+Eclipse Public License 2.0 (EPL-2.0)
 
 ## Citation
 
