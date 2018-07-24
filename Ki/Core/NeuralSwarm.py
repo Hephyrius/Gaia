@@ -201,7 +201,7 @@ class NeuralSwarm():
         
     
     #optimize the swarms for x iterations
-    def Fit(self, iterations, X, Y):
+    def Fit(self, X, Y, iterations):
         bests = []
         
         for i in range(self.TotalSwarms):
