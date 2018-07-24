@@ -7,8 +7,8 @@ Created on Thu Jul 12 23:18:40 2018
 Feed Forward Network
 """
 
-import Neuron as Node
-import Connection as Con
+from .Neuron import Neuron as Node
+from .Connection import Connection as Con
 import numpy as np
 import math
 

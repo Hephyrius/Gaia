@@ -4,7 +4,7 @@ Created on Fri Jul 13 19:10:56 2018
 
 @author: Khera
 """
-import FeedForwardNetwork as FFN
+from .FeedForwardNetwork import FeedForwardNetwork as FFN
 import numpy as np
 import pandas as pd
 import copy

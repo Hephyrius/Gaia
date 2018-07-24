@@ -5,9 +5,8 @@ Created on Sun Jul 22 07:34:01 2018
 @author: Harnick Khera
 """
 import random as r
-import FeedForwardNetwork as FFN
+from .FeedForwardNetwork import FeedForwardNetwork as FFN
 import numpy as np
-import pandas as pd
 import copy
 
 class NeuralSwarm():
@@ -226,45 +225,4 @@ class NeuralSwarm():
             bests.append(BestIndiv)
         
         return bests
-        
-  
-    
-           
-##TESTING
-
-HiveMind = NeuralSwarm(4,3,20,1) 
-
-#Iris Data:
-iris = pd.read_csv("testdata/iris.csv")
-cols = iris.columns
-X = []
-Y = []
-iris['label'] = iris['label'].astype('category')
-iris['label'] = iris['label'].cat.codes
-
-for c, i in iris.iterrows():
-    
-    row = []
-    row.append(i['1'])
-    row.append(i['2'])
-    row.append(i['3'])
-    row.append(i['4'])
-    X.append(row)
-    
-    Y.append(i['label'])        
-
-
-HiveMind.Optimize(100, X, Y)
-
-
-
-
-
-
-
-
-
-
-
-
-            
+          

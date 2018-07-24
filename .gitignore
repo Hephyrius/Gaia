@@ -1,3 +1,5 @@
-
+dist/
 *.pyc
 *.csv
+build/
+ki.egg-info/
