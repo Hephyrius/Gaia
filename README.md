@@ -94,10 +94,10 @@ PredictionClass = np.argmax(preds)
 ## Citation
 
 @misc{Khera2018Gaia,
-  title={Hephyrion},
+  title={Gaia},
   author={Khera, Harnick},
   year={2018},
-  howpublished={\url{https://github.com/hephyrius/hephyrion}},
+  howpublished={\url{https://github.com/hephyrius/Gaia}},
 }
 
 
