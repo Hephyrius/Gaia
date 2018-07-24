@@ -1,6 +1,7 @@
 # Ki 
 
 Nature inspired ML and Heuristic Combos. For fun and science!
+
 Named after the Sumerian god of earth.
 
 ## Summary:
