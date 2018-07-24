@@ -9,6 +9,12 @@ This repo is just me experimenting with Heuristics, Machine Learning and other i
 I don't intend for it to be used in any manner, for now atleast.
 Although if you do use it in anything accademic, please cite me! it would be appreciated!
 
+## Installation:
+
+```python
+pip install Ki
+```
+
 ## Structure:
 
 ### Folders:
