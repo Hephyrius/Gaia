@@ -2,8 +2,6 @@
 
 Nature inspired ML and Heuristic Combos. For fun and science!
 
-Named after the Sumerian god of earth.
-
 ## Summary:
 
 This repo is just me experimenting with Heuristics, Machine Learning and other ideas. 
@@ -14,6 +12,20 @@ Although if you do use it in anything accademic, please cite me! it would be app
 
 ```python
 pip install Ki
+```
+
+## Build from source:
+
+Run from the root directory:
+
+```
+python setup.py bdist_wheel
+```
+
+Install the compiled file by running
+
+```
+pip install dist/Ki-0.2-py3-none-any.whl
 ```
 
 ## Structure:

@@ -10,59 +10,39 @@ import numpy as np
 import copy
 
 class NeuralSwarm():
+    
     #Hyper Parameters
-    InputSize = 0
-    OutputSize = 0
     SwarmSize = 0
-    TotalSwarms = 0
     
     #store population networks and swarm sizes
     SwarmPopulations = []
-    SwarmNetworkSizes = []
+    NetworkSize = []
     SwarmParticleVelocities = []
     
     #constructor for initing the "hive mind network"
-    def __init__(self, _InputSize, _OutputSize, _SwarmSize, _TotalSwarms):
+    def __init__(self, _NetworkSize, _SwarmSize):
         
-        self.InputSize = _InputSize
-        self.OutputSize = _OutputSize
+        self.NetworkSize = _NetworkSize
         self.SwarmSize = _SwarmSize
-        self.TotalSwarms = _TotalSwarms
         self.SwarmPopulations = []
-        self.SwarmNetworkSizes = []
         
         #initialise the networks in the swarms
         self.initSwarms()
     
-    #create random sized networks and add them to a population, and then add each population to the total list
+    #create random networks and add them to a population
     def initSwarms(self):
         
-        #create random sized hidden layer sizes and counts
-        for i in range(self.TotalSwarms):
-            NetworkSize = []
-            NetworkSize.append(self.InputSize)
-            HiddenSize = r.randint(1,2)
-            for j in range(HiddenSize):
-                NetworkSize.append(r.randint(2,4))
-                
-            NetworkSize.append(self.OutputSize)
+        #add networks to totalpops
+        for j in range(self.SwarmSize):
             
-            self.SwarmNetworkSizes.append(NetworkSize)
-            
-            Population = []
-            
-            #add networks to pop and then add pop to totalpops
-            for j in range(self.SwarmSize):
-                
-                partical = FFN(NetworkSize)
-                Population.append(partical)
-            
-            self.SwarmPopulations.append(Population)
+            partical = FFN(self.NetworkSize)
+            self.SwarmPopulations.append(partical)
+
 
     #assess the fitness of a single network
-    def AssessNetworkAccuracy(self, SwarmNumber, NetworkNumber, X, Y):
+    def AssessNetworkAccuracy(self, NetworkNumber, X, Y):
         
-        Network = self.SwarmPopulations[SwarmNumber][NetworkNumber]
+        Network = self.SwarmPopulations[NetworkNumber]
         
         TotalValues = len(Y)
         Accuracy = 0
@@ -96,39 +76,39 @@ class NeuralSwarm():
         Network.Fitness = Fitness
 
     #Assess the entire population
-    def AssessPopulation(self, SwarmNumber, X, Y):
+    def AssessPopulation(self, X, Y):
         
-        for i in range(len(self.SwarmPopulations[SwarmNumber])):
+        for i in range(len(self.SwarmPopulations)):
             
-            self.AssessNetworkAccuracy(SwarmNumber, i, X, Y)
+            self.AssessNetworkAccuracy(i, X, Y)
         
         bestFitness = 0
         popfitness = 0
         
-        for i in range(len(self.SwarmPopulations[SwarmNumber])):
-            popfitness += self.SwarmPopulations[SwarmNumber][i].Fitness
-            if self.SwarmPopulations[SwarmNumber][i].Fitness > bestFitness:
-                bestFitness = self.SwarmPopulations[SwarmNumber][i].Fitness
+        for i in range(len(self.SwarmPopulations)):
+            popfitness += self.SwarmPopulations[i].Fitness
+            if self.SwarmPopulations[i].Fitness > bestFitness:
+                bestFitness = self.SwarmPopulations[i].Fitness
                 bestIndividual = i
         
         popfitness = popfitness / self.SwarmSize
-        print("Best Fitness = " + str(bestFitness) + " for swarm " + str(SwarmNumber))
-        print("Population Fitness = " + str(popfitness)+ " for swarm " + str(SwarmNumber))
+        print("Best Fitness = " + str(bestFitness) + " for swarm " )
+        print("Population Fitness = " + str(popfitness)+ " for swarm " )
         
         return bestFitness, bestIndividual
     
-    def ArrangeByFitness(self, SwarmNumber):
+    def ArrangeByFitness(self):
         
         #sort the population in fitness order
-        for j in range(len(self.SwarmPopulations[SwarmNumber])):
+        for j in range(len(self.SwarmPopulations)):
             
-            for k in range(j+1, len(self.SwarmPopulations[SwarmNumber])):
+            for k in range(j+1, len(self.SwarmPopulations)):
                 
-                if self.SwarmPopulations[SwarmNumber].Fitness < self.SwarmPopulations[SwarmNumber][k].Fitness:
+                if self.SwarmPopulations.Fitness < self.SwarmPopulations[k].Fitness:
                     
-                    net = self.SwarmPopulations[SwarmNumber][j]
-                    self.SwarmPopulations[SwarmNumber][j] = self.SwarmPopulations[SwarmNumber][k]
-                    self.SwarmPopulations[SwarmNumber] = net
+                    net = self.SwarmPopulations[j]
+                    self.SwarmPopulations[j] = self.SwarmPopulations[k]
+                    self.SwarmPopulations[k] = net
         
     #uodate velocities
     def UpdateVelocities(self, Network, BestNetwork, GlobalNetwork, X, Y):
@@ -174,26 +154,23 @@ class NeuralSwarm():
                 
         
         return NetworkToReturn, UpdateGlobal
-            
-            
-                            
-                            
+                              
     
     #find the avarage/middle values of the swarm            
-    def GlobalPosition(self, SwarmNumber):
+    def GlobalPosition(self):
         
         #create a placeholder network to deal with the position of the swarm
-        GlobalNet = FFN(self.SwarmNetworkSizes[SwarmNumber])
+        GlobalNet = FFN(self.NetworkSize)
         
-        for i in range(len(self.SwarmPopulations[SwarmNumber][0].Layers)):
-                if i != len(self.SwarmPopulations[SwarmNumber][0].Layers) - 1:
+        for i in range(len(self.SwarmPopulations[0].Layers)):
+                if i != len(self.SwarmPopulations[0].Layers) - 1:
                     
-                    for j in range(len(self.SwarmPopulations[SwarmNumber][0].Layers[i])):
+                    for j in range(len(self.SwarmPopulations[0].Layers[i])):
                         
-                        for k in range(len(self.SwarmPopulations[SwarmNumber][0].Layers[i][j].ConnectionsIn)):
+                        for k in range(len(self.SwarmPopulations[0].Layers[i][j].ConnectionsIn)):
                             
                             for l in range(self.SwarmSize):
-                                GlobalNet.Layers[i][j].ConnectionsIn[k].Weight += self.SwarmPopulations[SwarmNumber][l].Layers[i][j].ConnectionsIn[k].Weight
+                                GlobalNet.Layers[i][j].ConnectionsIn[k].Weight += self.SwarmPopulations[l].Layers[i][j].ConnectionsIn[k].Weight
                             
                             GlobalNet.Layers[i][j].ConnectionsIn[k].Weight /= self.SwarmSize
         return GlobalNet
@@ -202,27 +179,22 @@ class NeuralSwarm():
     
     #optimize the swarms for x iterations
     def Fit(self, X, Y, iterations):
-        bests = []
+
+        for j in range(iterations):
         
-        for i in range(self.TotalSwarms):
+            bf, bi = self.AssessPopulation(X, Y)
+            BestIndiv = self.SwarmPopulations[bi]
+            GlobalNet = self.GlobalPosition()
             
-            for j in range(iterations):
-            
-                bf, bi = self.AssessPopulation(i, X, Y)
-                BestIndiv = self.SwarmPopulations[i][bi]
-                GlobalNet = self.GlobalPosition(i)
+            for k in range(self.SwarmSize):
+                IndivNet = self.SwarmPopulations[k]
+                NewNet, UpdateGlobal = self.UpdateVelocities(IndivNet, BestIndiv, GlobalNet, X, Y)
+                self.SwarmPopulations[k] = NewNet
                 
-                for k in range(self.SwarmSize):
-                    IndivNet = self.SwarmPopulations[i][k]
-                    NewNet, UpdateGlobal = self.UpdateVelocities(IndivNet, BestIndiv, GlobalNet, X, Y)
-                    self.SwarmPopulations[i][k] = NewNet
+                if UpdateGlobal == True:
                     
-                    if UpdateGlobal == True:
-                        
-                        GlobalNet = self.GlobalPosition(i)
+                    GlobalNet = self.GlobalPosition()
                     
-                
-            bests.append(BestIndiv)
+
         
-        return bests
           
