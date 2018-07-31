@@ -9,17 +9,20 @@ Feed Forward Network
 
 from .Neuron import Neuron as Node
 from .Connection import Connection as Con
+from .LossFunctions import ActivationFunctions as activations
 import numpy as np
 import math
 
 class FeedForwardNetwork():
     
     Layers = []
+    Activations = []
     Fitness = 0
     
     def __init__(self, _LayerSizes):
         
         self.Layers = []
+        self.Activations = []
         self.CreateNetwork(_LayerSizes)
         self.Fitness = 0
     
@@ -27,7 +30,7 @@ class FeedForwardNetwork():
     def CreateNetwork(self, _LayerSizes):
         
         for i in _LayerSizes:
-            
+            self.Activations.append(6)
             Layer = []
             
             for j in range(i):
@@ -67,6 +70,8 @@ class FeedForwardNetwork():
         
         for i in range(1, len(self.Layers)):
             
+            af = activations(self.Activations[i])
+            
             for j in self.Layers[i]:
                 
                 nodeValue = 0
@@ -77,7 +82,7 @@ class FeedForwardNetwork():
                 
                 #print(nodeValue)
                 j.Value = nodeValue
-                j.ActivatedAdjustedValue = self.sinh(j.Value)
+                j.ActivatedAdjustedValue = af.ExecuteActivationFunction(j.Value)
                 
         outputs = []
         

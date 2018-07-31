@@ -6,14 +6,13 @@ Created on Tue Jul 31 19:40:34 2018
 """
 import numpy as np
 
-class LossFunctions():
+class ActivationFunctions():
     
     f = 0
     
     def __init__(self):
         self.f = 0
         
-    #More Traditional Loss Functions        
     def Sigmoid(self, x):
         return 1 / (1 + np.exp(-x))   
     
@@ -27,7 +26,7 @@ class LossFunctions():
     def Arctan(self, x):
         return np.arctan(x)
     
-    #Hyperbolic Losses
+    #Hyperbolic Activation
     #Cosh, Sinh, Tanh
     def Cosh(self, x):
         return np.cosh(x)
@@ -38,7 +37,7 @@ class LossFunctions():
     def Tanh(self, x):
         return np.tanh(x)
     
-    #Trig style losses:
+    #Trig style Activation:
     #Sin, Cos, Tan
     
     def Cos(self, x):
@@ -50,7 +49,7 @@ class LossFunctions():
     def Tan(self, x):
         return np.tan(x)
     
-    def ExecuteLossFunction(self, x):
+    def ExecuteActivationFunction(self, x):
         
         if self.f == 0:
             return self.Identity(x)
