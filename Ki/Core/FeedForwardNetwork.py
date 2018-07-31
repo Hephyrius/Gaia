@@ -9,7 +9,7 @@ Feed Forward Network
 
 from .Neuron import Neuron as Node
 from .Connection import Connection as Con
-from .LossFunctions import ActivationFunctions as activations
+from .ActivationFunctions import ActivationFunctions as Act
 import numpy as np
 import math
 
@@ -70,7 +70,7 @@ class FeedForwardNetwork():
         
         for i in range(1, len(self.Layers)):
             
-            af = activations(self.Activations[i])
+            af = Act(self.Activations[i])
             
             for j in self.Layers[i]:
                 
@@ -91,27 +91,6 @@ class FeedForwardNetwork():
             outputs.append(i.Value)
         
         return outputs
-                
-
-    def sinh(self, x):
-        
-        return np.sinh(x)
-       
-        
-    def sigmoid(self, x):
-        
-
-        return 1 / (1 + math.exp(-x))   
-    
-    def Tanh(self, x):
-        
-        return np.tanh(x)
-    
-    
-#Network = FeedForwardNetwork([1,5,5,10])
-#preds = Network.predict([8])
-#prediction = np.argmax(preds)
-
 
 
 

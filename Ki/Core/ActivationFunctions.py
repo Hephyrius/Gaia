@@ -10,8 +10,8 @@ class ActivationFunctions():
     
     f = 0
     
-    def __init__(self):
-        self.f = 0
+    def __init__(self,_f):
+        self.f = _f
         
     def Sigmoid(self, x):
         return 1 / (1 + np.exp(-x))   
