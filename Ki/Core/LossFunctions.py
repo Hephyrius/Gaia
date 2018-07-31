@@ -50,7 +50,47 @@ class LossFunctions():
     def Tan(self, x):
         return np.tan(x)
     
-    
-losses = LossFunctions()
-tan = losses.Arctan(-0.005)
-print(tan)
+    def ExecuteLossFunction(self, x):
+        
+        if self.f == 0:
+            return self.Identity(x)
+        
+        elif self.f == 1:
+            return self.Sigmoid(x)
+        
+        elif self.f == 2:
+            return self.DerivedRelu(x)
+        
+        elif self.f == 3:
+            return self.Arctan(x)
+        
+        elif self.f == 4:
+            return self.Cosh(x)
+        
+        elif self.f == 5:
+            return self.Sinh(x)
+        
+        elif self.f == 6:
+            return self.Tanh(x)
+        
+        elif self.f == 7:
+            return self.Cos(x)
+        
+        elif self.f == 8:
+            return self.Sin(x)
+        
+        elif self.f == 9:
+            return self.Tan(x)
+
+
+
+
+
+
+
+
+
+
+
+
+
