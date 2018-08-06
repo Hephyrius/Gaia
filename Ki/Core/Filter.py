@@ -45,7 +45,6 @@ class Filter():
                 filterOutput[i,j] = np.sum(Filtered)
         
         return filterOutput
-        
 
 #Test Data of a Cube
 data = [[1,1,1,1,1,1,1,1,1],
