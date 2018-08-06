@@ -6,7 +6,7 @@ Created on Tue Aug  7 00:14:41 2018
 """
 import numpy as np
 
-class ConvolutionPooling():
+class Pooling():
     
     WindowSize = [2,2]
     
@@ -46,7 +46,7 @@ data = [[1,1,1,1,1,1,1,1,1],
 
 data = np.asarray(data)
 
-pool = ConvolutionPooling()
+pool = Pooling()
 pooled = pool.MaxPoolData(data)
 pooled2 = pool.MaxPoolData(pooled)
 
