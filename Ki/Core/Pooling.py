@@ -32,6 +32,9 @@ class Pooling():
     
         return Out
         
+    def Flatten(self, data):
+        
+        return np.ravel(data)
         
 #Test Data of a Cube
 data = [[1,1,1,1,1,1,1,1,1],
@@ -49,7 +52,7 @@ data = np.asarray(data)
 pool = Pooling()
 pooled = pool.MaxPoolData(data)
 pooled2 = pool.MaxPoolData(pooled)
-
+flat = pool.Flatten(pooled2)
 
 
 

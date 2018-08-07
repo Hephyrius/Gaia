@@ -7,4 +7,4 @@ Created on Tue Jul 24 20:17:19 2018
 from __future__ import absolute_import
 from . import Core
 
-__version__ = '0.1'
+__version__ = '0.2'

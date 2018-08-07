@@ -6,6 +6,7 @@ Created on Thu Aug  2 18:42:15 2018
 """
 
 import numpy as np
+import ActivationFunctions as act
 #from scipy import signal
 import random as r
 
@@ -45,6 +46,13 @@ class Filter():
                 filterOutput[i,j] = np.sum(Filtered)
         
         return filterOutput
+    
+    #apply activations to filtered results
+    def ApplyActivation(self, Data):
+        a = act.ActivationFunctions(0)
+        for i in range(Data.shape[0]):
+            for j in range(Data.shape[1]):
+                Data[i,j] = a.DerivedRelu(Data[i,j])
 
 #Test Data of a Cube
 data = [[1,1,1,1,1,1,1,1,1],
@@ -66,6 +74,7 @@ for i in range(5):
     
     filts.append(Filter())
     out = filts[i].ApplyFilter(data)
+    filts[i].ApplyActivation(out)
     outs.append(out)
     print(out)
 
