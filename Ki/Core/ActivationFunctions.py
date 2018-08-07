@@ -19,6 +19,8 @@ class ActivationFunctions():
     def DerivedRelu(self, x):
         return 1. * (x > 0)
     
+    def Relu(self, x):
+        return np.max([0, x])
     #essentially x = x
     def Identity(self, x):
         return x
@@ -80,6 +82,9 @@ class ActivationFunctions():
         
         elif self.f == 9:
             return self.Tan(x)
+        
+        elif self.f == 10:
+            return self.Relu(x)
 
 
 

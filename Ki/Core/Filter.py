@@ -52,7 +52,7 @@ class Filter():
         a = act.ActivationFunctions(0)
         for i in range(Data.shape[0]):
             for j in range(Data.shape[1]):
-                Data[i,j] = a.DerivedRelu(Data[i,j])
+                Data[i,j] = a.Relu(Data[i,j])
 
 #Test Data of a Cube
 data = [[1,1,1,1,1,1,1,1,1],
