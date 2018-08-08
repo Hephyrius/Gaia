@@ -17,56 +17,58 @@ from ActivationFunctions import ActivationFunctions as Act
 
 import numpy as np
 
-def ConvolutionNetwork():
+class ConvolutionNetwork():
     
     Layers = []
     LayerTypes = []
     Activations = []
     NumberOutputs = 0
+    InputSize = []
     Fitness = 0
     
     #get the hyper parameters ready
-    def __init__(self, _LayerSizes, _LayerTypes, _NumberOutputs):
+    def __init__(self, _LayerSizes, _LayerTypes, _InputSize, _NumberOutputs):
         
         self.Layers = []
         self.LayerTypes = []
         self.Activations = []
         self.Fitness = 0
         self.NumberOutputs = _NumberOutputs
+        self.InputSize = _InputSize
         
         self.CreateNetwork(_LayerSizes, _LayerTypes)
     
-    #need to make this more dynamic...
-    def CreateNetwork(self, _LayerSizes, _LayerTypes):
-
-        Layer1 = []
-        Layer2 = []
-        Layer3 = []
-        Layer4 = []
-        Layer5 = []
-        Layer6 = []
+    def AddLayers(self, FilterSize=[3,3], NumberFilters=8, NumberLayers=2):
         
-        for i in range(32):
+        for i in range(NumberLayers):
+            Layer = []
             
-            Layer1.append(Filter())
+            for i in range(NumberFilters):
+                Layer.append(Filter(FilterSize))
         
-        Layer2.append(Pooling())
+        self.Layers.append(Layer)
+        self.LayerTypes.append(0)
         
-        for i in range(32):
-            
-            Layer3.append(Filter())
-        
-        Layer4.append(Pooling())
-        
-        for i in range(self.NumberOutputs):
-            
-            Layer6.append(Node())
-
-        
-        
-
-
+        Layer = [Pooling()]
+        self.Layers.append(Layer)
+        self.LayerTypes.append(1)
     
+    #Dynamically add Filter and Pooling Layers
+    def CreateNetwork(self, _LayerSizes, _LayerTypes):
+        
+        for i in range(2):
+            self.AddLayers([3+i,3+i], 16, 1)
+
+        
+        
+    def CalculateNumberNeurons(self):
+        
+        zeros = np.zeros(self.InputSize)
+        
+        #for i in range(self.LayerTypes):
+            
+
+CNN = ConvolutionNetwork(0,0, [256,256], 3) 
     
     
     

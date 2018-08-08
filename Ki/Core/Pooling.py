@@ -9,10 +9,12 @@ import numpy as np
 class Pooling():
     
     WindowSize = [2,2]
+    OutData = []
     
     def __init__(self, _WindowSize=[2,2]):
         
         self.WindowSize = _WindowSize
+        self.OutData = []
     
     def MaxPoolData(self, Data):
         
@@ -35,7 +37,7 @@ class Pooling():
     def Flatten(self, data):
         
         return np.ravel(data)
-        
+'''
 #Test Data of a Cube
 data = [[1,1,1,1,1,1,1,1,1],
         [1,0,0,0,0,0,0,0,1],
@@ -54,5 +56,5 @@ pooled = pool.MaxPoolData(data)
 pooled2 = pool.MaxPoolData(pooled)
 flat = pool.Flatten(pooled2)
 
-
+'''
 

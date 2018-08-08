@@ -17,13 +17,14 @@ class Filter():
     FilterSize = []
     Stride = []
     Padding = []
+    OutData = []
     
     def __init__(self, _FilterSize=[3,3], _Stride=[1,1], _Padding=[1,1,1,1]):
         
         self.FilterSize = _FilterSize
         self.Stride = _Stride
         self.Padding = _Padding
-
+        self.OutData = []
         self.Filter = np.random.uniform(low =-1, high=1, size=[self.FilterSize[0], self.FilterSize[1]])
     
     #Apply a filter to some input data
@@ -53,7 +54,7 @@ class Filter():
         for i in range(Data.shape[0]):
             for j in range(Data.shape[1]):
                 Data[i,j] = a.Relu(Data[i,j])
-
+'''
 #Test Data of a Cube
 data = [[1,1,1,1,1,1,1,1,1],
         [1,0,0,0,0,0,0,0,1],
@@ -84,7 +85,6 @@ for i in range(5):
 
 
 
-
-
+'''
 
 
