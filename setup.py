@@ -27,9 +27,9 @@ setup(name='Ki',
       url='https://github.com/hephyrius/ki',
       download_url='https://github.com/hephyrius/ki/tarball/0.2',
       license='GPL-3.0-only',
-      install_requires=['numpy>=1.9.1'],
+      install_requires=['numpy>=1.9.1','scikit-fuzzy>=0.3.1'],
       extras_require={
-          'tests': ['pandas'],
+          'tests': ['pandas', 'mido', 'gym'],
       },
       classifiers=[
           'Development Status :: 3 - Alpha',
