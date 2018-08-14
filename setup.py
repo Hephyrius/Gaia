@@ -19,13 +19,13 @@ and is distributed under the Eclipse Public License 2.0.
 '''
 
 setup(name='Ki',
-      version='0.2',
+      version='0.2.2',
       description='Reinforcment Learning Inspired by Earth',
       long_description=long_description,
       author='Harnick Khera',
       author_email='harnickk@gmail.com',
       url='https://github.com/hephyrius/ki',
-      download_url='https://github.com/hephyrius/ki/tarball/0.2',
+      download_url='https://github.com/hephyrius/ki/tarball/0.2.2',
       license='GPL-3.0-only',
       install_requires=['numpy>=1.9.1','scikit-fuzzy>=0.3.1'],
       extras_require={
