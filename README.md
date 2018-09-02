@@ -1,11 +1,11 @@
 # Ki 
 
-Nature inspired ML and Heuristic Combos. For fun and science!
+Machine Learning, Heuristic  and other ideas. For fun and science!
 
 ## Summary:
 
-This repo is just me experimenting with Heuristics, Machine Learning and other ideas. 
-I don't intend for it to be used in any manner, for now atleast.
+This library is a general experiment with Heuristics, Machine Learning and other AI related ideas. 
+The library is in a very early stage (ie alpha) and is focused more on exploring novel ideas rather than a specific focus on providing production-ready code.
 Although if you do use it in anything accademic, please cite me! it would be appreciated!
 
 ## Installation:
@@ -25,7 +25,7 @@ python setup.py bdist_wheel
 Install the compiled file by running
 
 ```
-pip install dist/Ki-0.2-py3-none-any.whl
+pip install dist/Ki-0.2.2-py3-none-any.whl
 ```
 
 ## Structure:
@@ -36,7 +36,7 @@ pip install dist/Ki-0.2-py3-none-any.whl
 
 /Ki/Examples/TestData/ - This folder contains data used in testing
 
-### Python Classes:
+### Feed Forward Neural Network Classes:
 
 /Core/Neuron.py - This class is used for the neurons within the neural network
 
@@ -47,6 +47,31 @@ pip install dist/Ki-0.2-py3-none-any.whl
 /Core/GeneticNetwork.py - This class is the GA optomiser for the FeedForward neural network
 
 /Core/NeuralSwarm.py - This class combines Particle Swarm Optimisation with neural networks
+
+/Core/LossFunction.py - Standard loss functions such as accuracy and log loss
+
+/Core/ActivationFunctions.py - Activation functions that are applied within neural net models to transform values - Relu, Sigmoid ect.
+
+
+### Convolution Neural Network Classes:
+
+/Core/Filter.py - This class contains the functionality needed to apply a filter to a larger matrix
+
+/Core/Pooling.py - This class contains pooling functions that help reduce a matrix's size
+
+/Core/ConvolutionNetwork.py - CNN implementation - This is currently being worked on
+
+### Markov Chain/Probability Model:
+
+/Markov/MarkovModel.py - Implemented Markov Model. This file can be fitted to a corpus of data and then use another sequence to make a prediction.
+
+/Markov/TextGenerationExample.py - A worked example that shows the useage of the Markov Model to generate text at a character-by-character level. This is fitted on lorem ipsom.
+
+### Fuzzy Models:
+
+/Fuzzy/MembershipFunctions.py - An interface for using Sk-Fuzzy' membership functions. This may change to fully incorporate implementations of membership functions natively.
+
+/Fuzzy/ANFIS.py - A WIP implementation of an Adaptive Neural Fuzzy Inference Model.
 
 ### Examples:
 
@@ -67,7 +92,7 @@ pip install dist/Ki-0.2-py3-none-any.whl
 * Pandas
 * OpenAi Gym
 
-## Useage Notes:
+## FF-NN Useage Notes:
 
 * Data must be given as python lists
 * Test data is a list of list of numbers
@@ -76,7 +101,11 @@ pip install dist/Ki-0.2-py3-none-any.whl
 * The Neuro Evolution Algorithm tries to MAXIMISE the fitness function. The fitness function is the ACCURACY of the individual model.
 * The Particle Swarm also tries to maxmise the accuracy function.
 
-## Usage:
+## Markov Model Notes:
+
+*the length of the data used in a prediction MUST be the same length as the number of models selected when the model was defined.
+
+## Example Feed Forward NN Usage:
 
 ### Init a Neuro Evolution :
 
