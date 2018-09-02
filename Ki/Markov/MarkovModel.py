@@ -16,36 +16,53 @@ class MarkovModel():
     #class variables
     FrequencyTable = pd.DataFrame()
     CountTable = pd.DataFrame()
+    SequenceLength = 1
+    Models = []
     
-    #
-    def __init__(self):
+    def __init__(self, seqLength=1):
         
         self.CountTable = pd.DataFrame()
         self.FrequencyTable = pd.DataFrame()
-    
+        self.SequenceLength = seqLength
+        self.Models = []
+        
     #the fit function takes a 1d array as a sequence and uses it to create the markov models relationships
     def fit(self, sequence):
-    
+        self.Models = []
         print("fitting")
         lower = self.toLower(sequence)
         uniques = self.uniques(lower)
-        self.generateSequenceStats(lower, uniques)
-        self.generateProbailities(lower, uniques)
+        for i in range(self.SequenceLength):
+            currentSeq = i+1
+            self.generateSequenceStats(lower, uniques, currentSeq)
+            self.generateProbailities(lower, uniques)
+            self.Models.append(self.FrequencyTable)
     
     #predict the next value given a current value
     def Predict(self, x):
-        for index , row in self.FrequencyTable.iterrows():
-            #print(row['Probabilities Followed On'])
-            if row['Value'] == x:
-                n = np.asarray(row['Probabilities Followed On'])
-                v = np.asarray(row['FollowingValue'])
-                return n, v
+        if len(x) != self.SequenceLength+1:
+            print("Sequence is not the correct length")
+            return 0,0
+        else:
+            res = 0
+            v = 0
+            idx = 1
+            for m in self.Models:
+                xx = x[idx-1:idx]
+                for index , row in m.iterrows():
+                    #print(row['Probabilities Followed On'])
+                    if row['Value'] == xx:
+                        res += np.asarray(row['Probabilities Followed On'])
+                        v = np.asarray(row['FollowingValue'])
+                idx +=1
+            res /= self.SequenceLength
+            return res, v
     
     #find the unique values in a sequence
     def uniques(self, sequence):
         
         uniqueValues = []
-        for i in seq:
+        for i in sequence:
             if i not in uniqueValues:
                 uniqueValues.append(i)
         return uniqueValues
@@ -55,7 +72,7 @@ class MarkovModel():
         return sequence.lower()
     
     #calculate frequency table counts
-    def generateSequenceStats(self, sequence, uniques):
+    def generateSequenceStats(self, sequence, uniques, sequenceN):
         
         Columns = {'Input','Raw Value', 'Related Value', 'Frequency', 'Count'}
         CountTab = pd.DataFrame(columns=Columns)
@@ -69,14 +86,14 @@ class MarkovModel():
                 following.append(0)
                 values.append(uniques[nextvalue])
             
-            for i in range(0, len(sequence)-1):
+            for i in range(0, len(sequence)-sequenceN):
                 
                 if sequence[i] == uniques[value]:
                     count = count+1
                     
-                for nextvalue in range(len(uniques)-1):
+                for nextvalue in range(len(uniques)):
                     
-                    if uniques[nextvalue] == sequence[i+1]:
+                    if uniques[nextvalue] == sequence[i+sequenceN]:
                         following[nextvalue] = following[nextvalue]+1
         
             result=pd.Series([uniques[value], uniques, values, following, count], index=['Input','Raw Value', 'Related Value', 'Frequency', 'Count'])
@@ -111,10 +128,3 @@ class MarkovModel():
         
         self.FrequencyTable = Probability
         
-#basic testing
-mk = MarkovModel()
-seq = "hello world world hello   ldkopsfpskdfpskfpskdfpsmfpskdfpmsdf sdfkms[dfs[dfk[sdfm sdf[sdmf[skdf "
-mk.fit(seq)
-prediction, val = mk.Predict(seq[len(seq)-1:])
-value = np.argmax(prediction)
-predictedval = val[value]
