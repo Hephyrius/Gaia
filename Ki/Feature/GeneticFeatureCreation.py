@@ -37,7 +37,7 @@ class GeneticFeatureCreation():
         
     def GetColumnNames(self):
         
-        for i in self.Data.Columns:
+        for i in self.Data.columns:
             if i not in self.FeaturesToAvoid:
                 self.ColumNames.append(i)
     
@@ -49,7 +49,14 @@ class GeneticFeatureCreation():
             for j in range(self.NumOperations):
                 operations.append(r.randint(0,5))
                 features.append(r.randint(0, len(self.ColumNames)))
-                
-                
             
-            
+            IndividualData = {"Operations":operations, "FeaturesUsed":features, "Output":[], "Fitness":0}
+            self.Population.append(IndividualData)
+                
+
+#testing 
+datas = pd.read_csv('../Examples/TestData/iris.csv')
+
+gen = GeneticFeatureCreation(datas)
+
+print(gen.Population[0]['Operations'])
