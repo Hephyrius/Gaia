@@ -12,3 +12,44 @@ import numpy as np
 import random as r
 
 class GeneticFeatureCreation():
+    
+    Data = []
+    ColumNames = []
+    Population = []
+    PopulationSize = 0
+    NumOperations = 0
+    FeaturesToAvoid = []
+    
+    def __init__(self, _Data, _PopulationSize=100, _NumOperations=6, _FeaturesAvoid=[]):
+        
+        self.Data = _Data
+        self.PopulationSize = _PopulationSize
+        self.NumOperations = _NumOperations
+        self.Population = []
+        self.ColumNames = []
+        self.FeaturesToAvoid = _FeaturesAvoid
+        
+        #generate column names by removing any avoided columns from the range of features
+        self.GetColumnNames()
+        
+        #initialise the first generation
+        self.InitPopulation()
+        
+    def GetColumnNames(self):
+        
+        for i in self.Data.Columns:
+            if i not in self.FeaturesToAvoid:
+                self.ColumNames.append(i)
+    
+    #generate sequences of operations
+    def InitPopulation(self):
+        for i in range(self.PopulationSize):
+            operations = []
+            features = []
+            for j in range(self.NumOperations):
+                operations.append(r.randint(0,5))
+                features.append(r.randint(0, len(self.ColumNames)))
+                
+                
+            
+            
