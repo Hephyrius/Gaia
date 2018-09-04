@@ -46,17 +46,22 @@ class GeneticFeatureCreation():
         for i in range(self.PopulationSize):
             operations = []
             features = []
+            math = []
             for j in range(self.NumOperations):
                 operations.append(r.randint(0,5))
-                features.append(r.randint(0, len(self.ColumNames)))
+                math.append(r.randint(0,3))
+                features.append(r.randint(0, len(self.ColumNames)-1))
             
-            IndividualData = {"Operations":operations, "FeaturesUsed":features, "Output":[], "Fitness":0}
+            IndividualData = {"Operations":operations, "FeaturesUsed":features, "Math":math, "Output":[], "Fitness":0}
             self.Population.append(IndividualData)
                 
-
+    #
 #testing 
 datas = pd.read_csv('../Examples/TestData/iris.csv')
 
 gen = GeneticFeatureCreation(datas)
 
-print(gen.Population[0]['Operations'])
+print(gen.Population[0]['FeaturesUsed'])
+
+
+
