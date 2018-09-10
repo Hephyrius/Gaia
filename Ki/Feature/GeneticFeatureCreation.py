@@ -212,6 +212,8 @@ class GeneticFeatureCreation():
                     Newindiv = self.CrossOver(self.Population[index], self.Population[index2])
                     Newindiv = self.Mutate(Newindiv)
                     NewPopulation.append(Newindiv)
+                    
+        self.Population = NewPopulation
     
     #mutate a given individual in order to generate a new one
     def Mutate(self, indiv):
@@ -291,5 +293,5 @@ datas = datas.drop(['label'], axis=1)
 gen = GeneticFeatureCreation(datas)
 print(gen.Population[0]['FeaturesUsed'])
 gen.EvolveFeatures(label)
-print(gen.BestFeatures)
+
 
