@@ -132,7 +132,7 @@ class GeneticFeatureCreation():
         
         #add in the original data for future reference
         for i in self.ColumNames:
-            features['orig_'+i] = self.Data[i]
+            features[i] = self.Data[i]
         
         #get the names as this helps for debugging later on
         names = features.columns
@@ -154,18 +154,19 @@ class GeneticFeatureCreation():
         res['names'] = names
         res['importance'] = importance
         
+        #total pop fitness
         mean = 0
         
         #use the importance as fitness values for individuals
         for i, row in res.iterrows():
             if "NewFeature" in row['names']:
-                if row['importance'] > 0.1:
-                    if self.Population[i] not in self.BestFeatures:
-                        print("Found strong feature, adding to bests")
-                        self.BestFeatures.append(self.Population[i])
-                    
+                
                 self.Population[i]['Fitness'] = row['importance']
                 mean += row['importance']
+                
+                if row['importance'] >= 0.15:
+                    print("Found strong feature")
+                    self.BestFeatures.append(self.Population[i])
         #print("best fitness is: " + str(np.max(importance)))
         print("Pop fitness is: " + str(mean))
         return res
@@ -294,4 +295,5 @@ gen = GeneticFeatureCreation(datas)
 print(gen.Population[0]['FeaturesUsed'])
 gen.EvolveFeatures(label)
 
-
+#%%
+print(gen.BestFeatures)
