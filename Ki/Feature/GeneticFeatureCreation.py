@@ -28,14 +28,16 @@ class GeneticFeatureCreation():
     PopulationSize = 0
     NumOperations = 0
     FeaturesToAvoid = []
+    BestFeatures = []
     
-    def __init__(self, _Data, _PopulationSize=100, _NumOperations=6, _FeaturesAvoid=[]):
+    def __init__(self, _Data, _PopulationSize=100, _NumOperations=10, _FeaturesAvoid=[]):
         
         self.Data = _Data.copy()
         self.PopulationSize = _PopulationSize
         self.NumOperations = _NumOperations
         self.Population = []
         self.ColumNames = []
+        self.BestFeature = []
         self.FeaturesToAvoid = _FeaturesAvoid
         
         #generate column names by removing any avoided columns from the range of features
@@ -157,6 +159,11 @@ class GeneticFeatureCreation():
         #use the importance as fitness values for individuals
         for i, row in res.iterrows():
             if "NewFeature" in row['names']:
+                if row['importance'] > 0.1:
+                    if self.Population[i] not in self.BestFeatures:
+                        print("Found strong feature, adding to bests")
+                        self.BestFeatures.append(self.Population[i])
+                    
                 self.Population[i]['Fitness'] = row['importance']
                 mean += row['importance']
         #print("best fitness is: " + str(np.max(importance)))
@@ -284,4 +291,5 @@ datas = datas.drop(['label'], axis=1)
 gen = GeneticFeatureCreation(datas)
 print(gen.Population[0]['FeaturesUsed'])
 gen.EvolveFeatures(label)
+print(gen.BestFeatures)
 

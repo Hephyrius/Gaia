@@ -9,6 +9,7 @@ This class deals with the independant membership functions.
 
 import skfuzzy as fz
 import numpy as np
+from .Core.Connection import Connection as con
 
 class MembershipFunction():
     
@@ -49,9 +50,10 @@ class MembershipFunction():
         if self.MFType == 5:
             return fz.membership.gbellmf(X, self.MFValues[0], self.MFValues[1], self.MFValues[2])
         
-        #bell Function
+        #Z shaped Function
         if self.MFType == 6:
             return fz.membership.zmf(X, self.MFValues[0], self.MFValues[1])
-# Crude Testing
-mf = MembershipFunction(6,[0,2,4,6])
-i = mf.EvaluateMF(np.asarray([2]))
+        
+## Crude Testing
+#mf = MembershipFunction(6,[0,2,4,6])
+#i = mf.EvaluateMF(np.asarray([2]))
