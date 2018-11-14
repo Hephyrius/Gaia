@@ -131,8 +131,8 @@ class GeneticFeatureCreation():
     def EvaluateFeatureSet(self, features, targets):
         
         #add in the original data for future reference
-        for i in self.ColumNames:
-            features[i] = self.Data[i]
+        #for i in self.ColumNames:
+            #features[i] = self.Data[i]
         
         #get the names as this helps for debugging later on
         names = features.columns
@@ -143,7 +143,7 @@ class GeneticFeatureCreation():
         
         #use random forest as a way of assessing how useful a new feature is
         from sklearn.ensemble import RandomForestClassifier
-        clf = RandomForestClassifier(n_jobs=256, random_state=0)
+        clf = RandomForestClassifier(n_jobs=4, n_estimators=512, random_state=0)
         clf.fit(features, targets)
         
         #now get the importance of the features
@@ -155,20 +155,20 @@ class GeneticFeatureCreation():
         res['importance'] = importance
         
         #total pop fitness
-        mean = 0
+        PopFitness = 0
         
         #use the importance as fitness values for individuals
         for i, row in res.iterrows():
             if "NewFeature" in row['names']:
                 
                 self.Population[i]['Fitness'] = row['importance']
-                mean += row['importance']
+                PopFitness += row['importance']
                 
                 if row['importance'] >= 0.15:
                     print("Found strong feature")
                     self.BestFeatures.append(self.Population[i])
-        #print("best fitness is: " + str(np.max(importance)))
-        print("Pop fitness is: " + str(mean))
+        print("best fitness is: " + str(np.max(importance)))
+        print("Pop fitness is: " + str(PopFitness))
         return res
     
     #evolve new features 
