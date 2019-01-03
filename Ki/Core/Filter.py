@@ -6,7 +6,7 @@ Created on Thu Aug  2 18:42:15 2018
 """
 
 import numpy as np
-import ActivationFunctions as act
+from .ActivationFunctions import ActivationFunctions as Act
 #from scipy import signal
 import random as r
 

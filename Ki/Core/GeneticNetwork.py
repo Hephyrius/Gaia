@@ -179,7 +179,7 @@ class GeneticNetwork():
             
             #assess the networks
             if Custom == False:
-                self.Function(X, Y)
+                self.AssessPopulation(X, Y)
             else:
                 Function(self, X, Y)
             
