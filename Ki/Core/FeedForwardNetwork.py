@@ -30,7 +30,7 @@ class FeedForwardNetwork():
     def CreateNetwork(self, _LayerSizes):
         
         for i in _LayerSizes:
-            self.Activations.append(6)
+            self.Activations.append(0)
             Layer = []
             
             for j in range(i):
